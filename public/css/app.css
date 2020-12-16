@@ -1,0 +1,25 @@
+body {
+  height: 100vh;
+  background: linear-gradient(#7c7c7c, #333333);
+  background-repeat: no-repeat;
+}
+
+.calculatorGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(100px, auto) repeat(5, 100px);
+  justify-content: center;
+  align-content: center;
+}
+
+.calculatorGrid .GridFor {
+  grid-column: span 4;
+}
+
+.calculatorGrid .GridTwo {
+  grid-column: span 2;
+}
+
+.calculatorGrid .GridOne {
+  grid-column: span 1;
+}
