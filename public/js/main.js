@@ -1,15 +1,26 @@
 // SELECTOR
 const numberButtons=document.querySelectorAll('.nbr')
 const operatorButtons=document.querySelectorAll('.ope')
-const calculDisplay=document.querySelector('input')
+const calculDisplay=document.querySelector('#main')
 const equal=document.getElementById('equal')
 const dot = document.getElementById('dot')
 const ac=document.getElementById('ac')
 const del=document.getElementById('del')
-let operatorCount=0;
 let operator;
 let tempNumber1;
 let tempNumber2;
+let operatorCount=0;
+let equalCount=0
+let calcul;
+let preview=document.querySelector('#preview')
+
+// PREVENT TEXT IN INPUT TEXT TYPE!!
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode != 46 &&(charCode < 48 || charCode > 57)))
+        return false;
+    return true;
+}
 
 
 
@@ -25,25 +36,51 @@ ac.addEventListener('click',()=>{
     tempNumber1=""
     tempNumber2=""
     operatorCount=0;
-
+    preview.value=""
 
 })
 
+dot.addEventListener('click',()=>{
+    if(calculDisplay.value.includes('.')){
+        return
+    }
 
-// NUMBERS BUTTON CLICK
+    else{
+    
+
+        calculDisplay.value+="."
+    }    
+    
+})
+
+
+
 numberButtons.forEach(button=>{
-    button.addEventListener('click',function(){
-        
-        calculDisplay.value+=button.textContent.toString()
+    button.addEventListener('click',function(){ 
+            
+            if(operatorCount==0){
+                calculDisplay.value+=button.textContent.toString()
+                tempNumber1=calculDisplay.value
+                // console.log(tempNumber1);
+                // console.log('test');
+                operatorButtons.forEach(ope=>{
+                    ope.style.color='black'
+                    ope.style.backgroundColor='var(--basicButtColor)'
+                })
 
-        if()
+            }
+            else{
 
-        operatorButtons.forEach(ope=>{
-            ope.style.color='black'
-            ope.style.backgroundColor='var(--basicButtColor)'
-        })
-
-        
+                calculDisplay.value+=button.textContent
+                tempNumber2=calculDisplay.value
+                // console.log(tempNumber2);
+                // console.log('test');
+                operatorButtons.forEach(ope=>{
+                    ope.style.color='black'
+                    ope.style.backgroundColor='var(--basicButtColor)'
+                })
+            }
+    
     })
 })
 
@@ -53,9 +90,29 @@ operatorButtons.forEach(ope=>{
     ope.addEventListener('click',()=>{
         if(calculDisplay.value!=""){
 
+            if(equalCount>0){
+                preview.value=calcul+ope.value
+
+
+            }
+
             if(operatorCount==0){
+                tempNumber1=calculDisplay.value.toString()
                 operatorCount++
-                tempNumber1=calculDisplay.value
+                operator=ope.value
+                preview.value=tempNumber1+operator
+                calculDisplay.value=""
+                // style
+                ope.style.backgroundColor='var(--onClickButtColor)'
+                ope.style.color='white'
+                // test  
+                console.log(tempNumber1);
+
+            }
+            else{
+                tempNumber1=tempNumber2
+                tempNumber2=calculDisplay.value
+                operatorCount++
                 operator=ope.value
                 calculDisplay.value=""
                 // style
@@ -63,20 +120,10 @@ operatorButtons.forEach(ope=>{
                 ope.style.color='white'
                 // test
                 console.log(tempNumber1);
-            }
-            // else if(operatorCount==1){
-            //     operatorCount++
-            //     tempNumber2=calculDisplay.value
-            //     operator=ope.textContent
-            //     calculDisplay.value=""
-            //     // style
-            //     ope.style.backgroundColor='var(--onClickButtColor)'
-            //     ope.style.color='white'
-            //     // test
-            //     console.log(tempNumber2);
 
-            // }
-            
+            }
+           
+     
         }
     })
 })
@@ -85,15 +132,29 @@ operatorButtons.forEach(ope=>{
 
 // EQUAL CLICK
 equal.addEventListener('click',()=>{
+    if(calculDisplay.value==""){
+        return
+    }
 
-    tempNumber2=calculDisplay.value
+    else if(tempNumber2==undefined){
+
+        preview.value+=calculDisplay.value
 
 
+    }
+    else{
 
-    let calcul=eval(tempNumber1+operator+tempNumber2)
+        preview.value+=tempNumber2
+        equalCount++
+        console.log(tempNumber1+tempNumber2);
+        tempNumber2=calculDisplay.value
+        calcul=eval(tempNumber1+operator+tempNumber2)
+        tempNumber2=calcul
+        calculDisplay.value=calcul
 
-    calculDisplay.value=calcul
+    }
+    
+
 })
-
 
 

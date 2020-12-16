@@ -18,15 +18,33 @@ body {
   align-content: center;
 }
 
-.calculatorGrid input {
-  appearance: none;
-  text-align: end;
-  outline: none;
+.calculatorGrid #output {
+  display: flex;
+  flex-grow: unset;
+  flex-direction: column;
   margin: 0;
   font-size: 2rem;
   text-align: end;
   background: linear-gradient(#2d2d3a, #cbcbec);
   border: #8b8b8b solid 1px;
+}
+
+.calculatorGrid #preview {
+  font-size: 20px;
+  text-justify: center;
+  color: rgba(0, 0, 0, 0.37);
+}
+
+.calculatorGrid input {
+  appearance: none;
+  text-align: end;
+  outline: none;
+  margin: 0;
+  height: 60%;
+  font-size: 2rem;
+  text-align: end;
+  border: none;
+  background: linear-gradient(#2d2d3a, #cbcbec);
 }
 
 .calculatorGrid input::-webkit-outer-spin-button,

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="./public/css/style.css">
 </head>
 <body>
+    <h1 style="text-align: center;">CALCULATOR HUGO</h1>
     <div class="calculatorGrid">
-        <input class="GridFor" type="number">
+        <div class="GridFor" id="output">
+            <input id="main" step="any" class="GridFor" lang="En-US" onkeypress="return isNumberKey(event)" type="text">
+            <!-- <div class="GridFor" id="preview"></div> -->
+            <input class="GridFor" id="preview">
+        </div>
         <button class="GridTwo" id="ac">AC</button>
         <button class="GridOne" id="del">DEL</button>
         <button class="GridOne ope" value="/">÷</button>
